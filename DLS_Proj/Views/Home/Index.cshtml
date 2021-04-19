@@ -1,0 +1,36 @@
+﻿@using PresentationLayer.ViewModels
+
+@model List<DirectoryViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div>
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li>
+                    <h3>@item.Directory.Title</h3>
+                    <ul>
+                        @if (item.Materials != null)
+                        {
+                            foreach (var sub in item.Materials)
+                            {
+                                <li>@sub.Material.Title</li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<!--
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+-->
