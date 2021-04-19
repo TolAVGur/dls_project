@@ -13,6 +13,7 @@ namespace PresentationLayer.Services
     public class MaterialsService 
     {
         private DataManager _dataManager;
+
         public MaterialsService (DataManager dataManager)
         {
             _dataManager = dataManager;
@@ -63,6 +64,30 @@ namespace PresentationLayer.Services
 
             return TransitMaterialToView(material.Id);
 
+        }
+
+        public MaterialViewModel GetMaterialEditModel(int materialId)
+        {
+            var dbModel = _dataManager.MatRepos.GetMaterialById(materialId);
+            var editModel = new MaterialViewModel()
+            {
+                Id = dbModel.Id,
+                DirectoryId = dbModel.DirectoryId,
+                Title = dbModel.Title,
+                Html = dbModel.Html
+            };
+            return editModel;
+        }
+
+        public MaterialViewModel CreateNewMaterialEditModel(int directoryId)
+        {
+            return new MaterialViewModel() { DirectoryId = directoryId };
+        }
+
+        public void DeleteMaterialFromDb(int materialId)
+        {
+            var delMaterial = _dataManager.MatRepos.GetMaterialById(materialId);
+            _dataManager.MatRepos.DeleteMaterial(delMaterial);
         }
     }
 }

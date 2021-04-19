@@ -1,4 +1,5 @@
 ﻿@using PresentationLayer.ViewModels
+@using DataLayer.Enums;
 
 @model List<DirectoryViewModel>
 
@@ -7,30 +8,67 @@
 }
 
 <div class="row">
-    <div>
+    <div class="col=md-6">
         <ul>
             @foreach (var item in Model)
             {
                 <li>
-                    <h3>@item.Directory.Title</h3>
+                    <h2>
+                        <a asp-action="Index" asp-controller="Page" 
+                           asp-route-pageId="@item.Directory.Id"
+                           asp-route-pageType="@PageEnums.PageType.Directory">
+                        @item.Directory.Title
+                        </a>
+                        <small>
+                            <a asp-action="PageEditor" asp-controller="Page" 
+                               asp-route-pageId="@item.Directory.Id"
+                               asp-route-pageType="@PageEnums.PageType.Directory">
+                                ----=> EditDirectory
+                            </a>
+                        </small>
+                    </h2>
+
                     <ul>
                         @if (item.Materials != null)
                         {
                             foreach (var sub in item.Materials)
                             {
-                                <li>@sub.Material.Title</li>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Page"
+                                       asp-route-pageId="@sub.Material.Id"
+                                       asp-route-pageType="@PageEnums.PageType.Material">
+                                        @sub.Material.Title
+                                    </a>
+                                    <small>
+                                        <a asp-action="PageEditor" asp-controller="Page"
+                                           asp-route-pageId="@sub.Material.Id"
+                                           asp-route-directoryId="@item.Directory.Id"
+                                           asp-route-pageType="@PageEnums.PageType.Material">
+                                            ----=> EditMaterial
+                                        </a>
+                                    </small>
+                                </li>
                             }
+                            <li>
+                                <a asp-action="PageEditor" asp-controller="Page"
+                                   asp-route-pageId="0"
+                                   asp-route-directoryId="@item.Directory.Id"
+                                   asp-route-pageType="@PageEnums.PageType.Material">
+                                    --> CreateMaterial
+                                </a>
+                            </li>
                         }
                     </ul>
                 </li>
-            }
+            }   
+            <li>
+                <a asp-action="PageEditor" asp-controller="Page"
+                 asp-route-pageId="0"
+                 asp-route-pageType="@PageEnums.PageType.Directory">
+                  --> CreateDirectory
+                </a>
+            </li>
         </ul>
     </div>
 </div>
 
-<!--
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
--->
