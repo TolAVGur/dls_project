@@ -80,5 +80,18 @@ namespace DLS_Proj.Controllers
             _servicesManager.MatService.SaveMaterialToDb(model);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult DeleteDirectory(int directoryId)
+        {
+            _servicesManager.DirService.DeleteDirectoryFromDb(directoryId);
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpGet]
+        public IActionResult DeleteMaterial(int materialId)
+        {
+            _servicesManager.MatService.DeleteMaterialFromDb(materialId);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

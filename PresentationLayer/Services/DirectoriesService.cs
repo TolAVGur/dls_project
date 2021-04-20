@@ -26,7 +26,7 @@ namespace PresentationLayer.Services
             var dir = _dataManager.DirRepos.GetDirectoryById(directory_id, true);
             List<MaterialViewModel> matts_list = new List<MaterialViewModel>();
             foreach (var item in dir.Materials)
-                matts_list.Add(_materialsService.TransitMaterialToView(directory_id));
+                matts_list.Add(_materialsService.TransitMaterialToView(item.Id));
             DirectoryViewModel vm = new DirectoryViewModel()
             {
                 Directory = dir, Materials = matts_list
